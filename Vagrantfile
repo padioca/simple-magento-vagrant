@@ -19,10 +19,13 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 80, host: 8080
 
+  config.vm.synced_folder ".", "/vagrant", type: "nfs"
+
   config.ssh.forward_agent = true
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.name = "simple-magento-vagrant"
   end
 
